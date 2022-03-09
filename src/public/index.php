@@ -1,26 +1,17 @@
 <?php
 
-use src\models\{Goods, Users, Carts, Orders};
-use src\engine\Db;
+use app\models\{Goods, Users, Carts, Orders};
+use app\engine\Autoload;
 
 include_once "../engine/Autoload.php";
 
-spl_autoload_register([new src\engine\Autoload(), "loadClass"]);
+spl_autoload_register([new Autoload(), "loadClass"]);
 
-$db = new Db();
+/*$good = new Goods("ASUS ROG GX502LXS-HF082T", "Ноутбук", 423190);
+var_dump($good->insertOne());*/
 
-$good = new Goods($db);
-echo $good->getOne(1);
-echo $good->getAll();
+/*$user = new Users("user4", 121);
+$user->insertOne();*/
 
-$user = new Users($db);
-echo $user->getOne(1);
-echo $user->getAll();
-
-$cart = new Carts($db);
-echo $cart->getOne(1);
-echo $cart->getAll();
-
-$order = new Orders($db);
-echo $order->getOne(1);
-echo $order->getAll();
+/*$good = new Goods();
+$good->deleteOne();*/

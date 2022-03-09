@@ -1,6 +1,6 @@
 <?php
 
-namespace src\interfaces;
+namespace app\interfaces;
 
 interface iModel
 {
@@ -9,4 +9,8 @@ interface iModel
     public function getOne($id);
 
     public function getAll();
+
+    public function deleteOne($id);
+
+    public function insertOne();
 }

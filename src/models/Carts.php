@@ -1,11 +1,11 @@
 <?php
 
-namespace src\models;
+namespace app\models;
 
 class Carts extends Model
 {
     public $id;
-    public $goodId;
+    public $good_id;
     public $count;
     public $sum;
 
