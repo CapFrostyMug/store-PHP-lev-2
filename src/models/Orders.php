@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Orders extends Model
+class Orders extends DBModel
 {
     public $id;
     public $date;
@@ -10,7 +10,7 @@ class Orders extends Model
     public $paymentType;
     public $sum;
 
-    public function getTableName()
+    public static function getTableName()
     {
         return "orders";
     }

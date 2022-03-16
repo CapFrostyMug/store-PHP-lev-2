@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\traits;
 
 trait tSingleton

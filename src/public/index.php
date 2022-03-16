@@ -4,14 +4,28 @@ use app\models\{Goods, Users, Carts, Orders};
 use app\engine\Autoload;
 
 include_once "../engine/Autoload.php";
+include_once "../config/config.php";
 
 spl_autoload_register([new Autoload(), "loadClass"]);
 
-/*$good = new Goods("ASUS ROG GX502LXS-HF082T", "Ноутбук", 423190);
-var_dump($good->insertOne());*/
+// INSERT
+/*$good = new Goods("Русь", "ЭВМ", 100500);
+$good->save();
+die();*/
 
-/*$user = new Users("user4", 121);
-$user->insertOne();*/
+// UPDATE
+/*$good = Goods::getOne(1);
+$good->price = 999;
+$good->save();*/
 
-/*$good = new Goods();
-$good->deleteOne();*/
+$controllerName = $_GET["c"] ?: "good";
+$actionName = $_GET["a"];
+
+$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
+    $controller->runAction($actionName);
+} else {
+    echo "Контроллер отсутствует";
+}
