@@ -19,4 +19,11 @@ abstract class Model implements iModel
     {
         return $this->$name;
     }
+
+    public function __isset($name)
+    {
+        if (isset($this->props[$name])) {
+            return true;
+        }
+    }
 }

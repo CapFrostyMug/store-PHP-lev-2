@@ -2,10 +2,19 @@
 
 namespace app\controllers;
 
+use app\engine\Render;
+use app\interfaces\iRender;
+
 abstract class Controller
 {
     private $action;
     private $defaultAction = "index";
+    private $render;
+
+    public function __construct(iRender $render)
+    {
+        $this->render = $render;
+    }
 
     public function runAction($action)
     {
@@ -28,10 +37,6 @@ abstract class Controller
 
     public function renderTemplate($template, $params = [])
     {
-        ob_start();
-        extract($params);
-        $templatePath = VIEWS_DIR . $template . ".php";
-        include $templatePath;
-        return ob_get_clean();
+        return $this->render->renderTemplate($template, $params);
     }
 }

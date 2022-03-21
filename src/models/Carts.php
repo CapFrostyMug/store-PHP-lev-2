@@ -14,7 +14,8 @@ class Carts extends DBModel
     {
         $sql = "SELECT carts.id 
                 AS carts_id, goods.id good_id, goods.name, goods.description, goods.price 
-                FROM `carts`,`goods` WHERE `session_id` = '111' 
+                FROM `carts`,`goods` 
+                WHERE `session_id` = '111' 
                 AND carts.good_id = goods.id";
 
         return Db::getInstance()->queryAll($sql);
