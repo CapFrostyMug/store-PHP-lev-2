@@ -15,9 +15,18 @@ abstract class DBModel extends Model
         return Db::getInstance()->queryLimit($sql, $limit);
     }
 
+    public static function getCountWhere($name, $value)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT count(id) as count FROM {$tableName} WHERE {$name} = :value";
+        return Db::getInstance()->queryOne($sql, ["value" => $value])["count"];
+    }
+
     public static function getWhere($name, $value)
     {
-        //
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} WHERE {$name} = :value";
+        return Db::getInstance()->queryOneObject($sql, ["value" => $value], static::class);
     }
 
     public static function getOne($id)
@@ -77,8 +86,9 @@ abstract class DBModel extends Model
     public function delete()
     {
         $tableName = static::getTableName();
+        //die();
         $sql = "DELETE FROM $tableName WHERE id = :id";
-        return Db::getInstance()->execute($sql, ["id" => $this->id]);
+        return Db::getInstance()->execute($sql, ["id" => $this->good_id]);
     }
 
     public function save()

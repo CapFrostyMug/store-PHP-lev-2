@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 21 2022 г., 16:47
+-- Время создания: Мар 24 2022 г., 13:20
 -- Версия сервера: 8.0.24
 -- Версия PHP: 7.4.27
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `carts` (
   `id` int NOT NULL,
-  `session_id` int NOT NULL,
+  `session_id` varchar(255) NOT NULL,
   `good_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -38,8 +38,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `session_id`, `good_id`) VALUES
-(1, 111, 1),
-(2, 111, 9);
+(1, '111', 1),
+(2, '111', 9);
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `pass`) VALUES
-(1, 'admin', 12345),
+(1, 'admin', 123),
 (2, 'user1', 123321),
 (3, 'user2', 111);
 

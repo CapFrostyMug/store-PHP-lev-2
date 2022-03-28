@@ -9,12 +9,11 @@ use Twig\Loader\FilesystemLoader;
 class TwigRender implements iRender
 {
     protected $twig;
-    protected $loader;
 
     public function __construct()
     {
-        $this->loader = new FilesystemLoader("../twigTemplates/");
-        $this->twig = new Environment($this->loader);
+        $loader = new FilesystemLoader("../twigTemplates/");
+        $this->twig = new Environment($loader);
     }
 
     public function renderTemplate($template, $params = [])

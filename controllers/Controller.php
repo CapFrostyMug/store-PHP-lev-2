@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\engine\Render;
 use app\interfaces\iRender;
+use app\models\Carts;
+use app\models\Users;
 
 abstract class Controller
 {
@@ -30,12 +32,16 @@ abstract class Controller
     public function render($template, $params = [])
     {
         return $this->renderTemplate("layouts/main", [
-            "menu" => $this->renderTemplate("menu", $params),
-            "content" => $this->renderTemplate($template, $params)
+            "menu" => $this->renderTemplate("menu", [
+                "userName" => Users::getName(),
+                "isAuth" => Users::isAuth(),
+                "count" => Carts::getCountWhere("session_id", session_id()),
+            ]),
+            "content" => $this->renderTemplate($template, $params),
         ]);
     }
 
-    public function renderTemplate($template, $params = [])
+    public function renderTemplate($template, $params)
     {
         return $this->render->renderTemplate($template, $params);
     }

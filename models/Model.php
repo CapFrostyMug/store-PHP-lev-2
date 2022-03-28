@@ -22,8 +22,6 @@ abstract class Model implements iModel
 
     public function __isset($name)
     {
-        if (isset($this->props[$name])) {
-            return true;
-        }
+        return isset($this->$name);
     }
 }
