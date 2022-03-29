@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\engine\Request;
+use app\engine\Session;
 use app\models\Carts;
 
 class CartController extends Controller
@@ -36,15 +38,22 @@ class CartController extends Controller
 
     public function actionDelete()
     {
+        /*$id = (new Request())->getParams()["id"];
+        $session_id = (new Session())->getId();*/
         $id = $_GET["id"];
         $session_id = session_id();
 
-        (new Carts($session_id, $id))->delete();
+        $cart = Carts::getOne($id);
+        $error = "Ok";
 
-        //header("Location: ?c=cart");
+        if ($session_id == $cart->session_id) {
+            $cart->delete();
+        } else {
+            $error = "Error";
+        }
 
         $response = [
-            "status" => "Ok",
+            "status" => $error,
             "count" => Carts::getCountWhere("session_id", $session_id),
         ];
 

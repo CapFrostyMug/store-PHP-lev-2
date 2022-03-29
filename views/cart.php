@@ -1,7 +1,7 @@
 <h2>Корзина</h2>
 
 <?php foreach ($cart as $item): ?>
-    <div class="del" data-id="<?= $item["carts_id"] ?>">
+    <div id="<?= $item["carts_id"] ?>">
         <h3><?= $item["name"] ?></h3>
         <p>price: <?= $item["price"] ?></p>
         <button class="del" data-id="<?= $item["carts_id"] ?>">Удалить</button>
@@ -15,15 +15,14 @@
     buttons.forEach((item) => {
         item.addEventListener("click", () => {
             let id = item.getAttribute("data-id");
-            //console.log(id);
             (
                 async () => {
-                    const response = await fetch("?c=cart&a=delete&id=" + id);
+                    const response = await fetch("/cart/delete/?id=" + id);
                     const answer = await response.json();
                     document.getElementById("count").innerText = answer.count;
+                    document.getElementById(id).remove();
                 }
             )();
-            item.remove();
         });
     });
 

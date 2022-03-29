@@ -25,6 +25,8 @@ class GoodController extends Controller
 
     public function actionCard()
     {
+        //$id = (new Request())->getParams()['id'];
+
         $id = $_GET["id"];
         $good = Goods::getOne($id);
 

@@ -11,13 +11,13 @@ include_once "../vendor/autoload.php";
 
 spl_autoload_register([new Autoload(), "loadClass"]);
 
-//$request = new \app\engine\Request();
+$request = new \app\engine\Request();
 
-/*$controllerName = $request->getControllerName() ?: "good";
-$actionName = $request->getActionName();*/
+$controllerName = $request->getControllerName() ?: "good";
+$actionName = $request->getActionName();
 
-$controllerName = $_GET["c"] ?: "good";
-$actionName = $_GET["a"];
+/*$controllerName = $_GET["c"] ?: "good";
+$actionName = $_GET["a"];*/
 
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 

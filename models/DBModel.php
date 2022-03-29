@@ -88,7 +88,7 @@ abstract class DBModel extends Model
         $tableName = static::getTableName();
         //die();
         $sql = "DELETE FROM $tableName WHERE id = :id";
-        return Db::getInstance()->execute($sql, ["id" => $this->good_id]);
+        return Db::getInstance()->execute($sql, ["id" => $this->id]);
     }
 
     public function save()

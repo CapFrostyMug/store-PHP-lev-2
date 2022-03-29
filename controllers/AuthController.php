@@ -13,7 +13,7 @@ class AuthController extends Controller
         $pass = $_POST["pass"];
 
         if (Users::Auth($login, $pass)) {
-            header("Location: ?");
+            header("Location: /");
             die();
         } else {
             die("Неверный логин/пароль");
@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         session_regenerate_id();
         session_destroy();
-        header("Location: ?");
+        header("Location: /");
         die();
     }
 }
