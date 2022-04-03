@@ -32,11 +32,10 @@ class Db
     private function getConnection()
     {
         if (is_null($this->connection)) {
-            $this->connection =
-                new \PDO($this->prepareDsnString(),
-                    $this->config["login"],
-                    $this->config["password"]
-                );
+            $this->connection = new \PDO($this->prepareDsnString(),
+                $this->config["login"],
+                $this->config["password"]
+            );
             $this->connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         return $this->connection;
@@ -44,7 +43,7 @@ class Db
 
     public function lastInsertId()
     {
-        return $this->connection->lastInsertId();
+        return $this->getConnection()->lastInsertId();
     }
 
 
@@ -67,7 +66,13 @@ class Db
     {
         $STH = $this->query($sql, $params);
         $STH->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
-        return $STH->fetch();
+        $obj = $STH->fetch();
+
+        if (!$obj) {
+            throw \Exception("Товар не найден :(", 404);
+        }
+
+        return $obj;
     }
 
     public function queryOne($sql, $params = [])

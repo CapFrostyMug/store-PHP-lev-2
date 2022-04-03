@@ -1,24 +1,16 @@
 <?php
 
-namespace app\models;
+namespace app\models\repositories;
 
 use app\engine\Db;
+use app\models\entities\Carts;
+use app\models\Repository;
 
-class Carts extends DBModel
+class CartRepository extends Repository
 {
-    protected $id;
-    protected $session_id;
-    protected $good_id;
-
-    protected $props = [
-        "session_id" => false,
-        "good_id" => false,
-    ];
-
-    public function __construct($session_id = null, $good_id = null)
+    protected function getEntityClass()
     {
-        $this->session_id = $session_id;
-        $this->good_id = $good_id;
+        return Carts::class;
     }
 
     public static function getCart($session_id)
@@ -32,7 +24,7 @@ class Carts extends DBModel
         return Db::getInstance()->queryAll($sql, ["session_id" => $session_id]);
     }
 
-    public static function getTableName()
+    protected function getTableName()
     {
         return "carts";
     }

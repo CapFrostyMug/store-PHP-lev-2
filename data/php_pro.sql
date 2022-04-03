@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 24 2022 г., 13:20
+-- Время создания: Апр 03 2022 г., 17:24
 -- Версия сервера: 8.0.24
 -- Версия PHP: 7.4.27
 
@@ -38,8 +38,11 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `session_id`, `good_id`) VALUES
-(1, '111', 1),
-(2, '111', 9);
+(1, 'u9a7fuv4eseug3f21ncbsb2qemh5mt5d', 1),
+(4, 'nio36c6mte7jejavjeg1iv9d8sbg5tjv', 9),
+(5, 'e059asdrgfu8eu5ip05qv55v220oto5f', 6),
+(6, 'e059asdrgfu8eu5ip05qv55v220oto5f', 9),
+(7, 'j7s3u7dgmogcifq1agme7f68rl175das', 1);
 
 -- --------------------------------------------------------
 
@@ -91,8 +94,8 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `pass` int NOT NULL
+  `login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `pass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -100,9 +103,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `pass`) VALUES
-(1, 'admin', 123),
-(2, 'user1', 123321),
-(3, 'user2', 111);
+(1, 'admin', '$2y$10$RYonEsFE82Ok7fAmH3ZSHupcnbwmKFcmOQMoYazwaR2./2G4.666S'),
+(2, 'user1', '123321'),
+(3, 'user2', '111');
 
 --
 -- Индексы сохранённых таблиц
@@ -141,7 +144,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `goods`

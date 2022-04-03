@@ -2,7 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Goods;
+use app\engine\Request;
+use app\models\repositories\GoodRepository;
 
 class GoodController extends Controller
 {
@@ -13,9 +14,9 @@ class GoodController extends Controller
 
     public function actionCatalog()
     {
-        $page = $_GET["page"] ?? 0;
+        $page = (new Request())->getParams()["page"] ?? 0;
         //$catalog = Goods::getAll();
-        $catalog = Goods::getLimit(($page + 1) * 5);
+        $catalog = (new GoodRepository())->getLimit(($page + 1) * 5);
 
         echo $this->render("good/catalog", [
             "catalog" => $catalog,
@@ -25,10 +26,9 @@ class GoodController extends Controller
 
     public function actionCard()
     {
-        //$id = (new Request())->getParams()['id'];
+        $id = (new Request())->getParams()["id"];
 
-        $id = $_GET["id"];
-        $good = Goods::getOne($id);
+        $good = (new GoodRepository())->getOne($id);
 
         echo $this->render("good/card", [
             "good" => $good

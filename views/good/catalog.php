@@ -11,11 +11,11 @@
 <a href="/good/catalog/?page=<?= $page ?>">Еще</a>
 
 <script>
+
     let buttons = document.querySelectorAll(".buy");
     buttons.forEach((item) => {
         item.addEventListener("click", () => {
             let id = item.getAttribute("data-id");
-            //console.log(id);
             (
                 async () => {
                     const response = await fetch("/cart/add/?id=" + id);
@@ -25,4 +25,5 @@
             )();
         })
     });
+
 </script>

@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
-use app\engine\Request;
-use app\engine\Session;
-use app\models\Carts;
+use app\models\repositories\CartRepository;
+use app\engine\{Request, Session};
+use app\models\entities\Carts;
 
 class CartController extends Controller
 {
@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         $session_id = session_id();
 
-        $cart = Carts::getCart($session_id);
+        $cart = (new CartRepository())->getCart($session_id);
 
         echo $this->render("cart", [
             "cart" => $cart,
@@ -21,14 +21,15 @@ class CartController extends Controller
 
     public function actionAdd()
     {
-        $id = $_GET["id"];
+        $id = (new Request())->getParams()["id"];
         $session_id = session_id();
 
-        (new Carts($session_id, $id))->save();
+        $cart = new Carts($session_id, $id);
+        (new CartRepository())->save($cart);
 
         $response = [
             "status" => "Ok",
-            "count" => Carts::getCountWhere("session_id", $session_id),
+            "count" => (new CartRepository())->getCountWhere("session_id", $session_id),
         ];
 
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -38,23 +39,21 @@ class CartController extends Controller
 
     public function actionDelete()
     {
-        /*$id = (new Request())->getParams()["id"];
-        $session_id = (new Session())->getId();*/
-        $id = $_GET["id"];
-        $session_id = session_id();
+        $id = (new Request())->getParams()["id"];
+        $session_id = (new Session())->getId();
 
-        $cart = Carts::getOne($id);
+        $cart = (new CartRepository())->getOne($id);
         $error = "Ok";
 
         if ($session_id == $cart->session_id) {
-            $cart->delete();
+            (new CartRepository())->delete($cart);
         } else {
             $error = "Error";
         }
 
         $response = [
             "status" => $error,
-            "count" => Carts::getCountWhere("session_id", $session_id),
+            "count" => (new CartRepository())->getCountWhere("session_id", $session_id),
         ];
 
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
