@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 03 2022 г., 17:24
+-- Время создания: Апр 10 2022 г., 17:13
 -- Версия сервера: 8.0.24
 -- Версия PHP: 7.4.27
 
@@ -38,11 +38,16 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `session_id`, `good_id`) VALUES
-(1, 'u9a7fuv4eseug3f21ncbsb2qemh5mt5d', 1),
-(4, 'nio36c6mte7jejavjeg1iv9d8sbg5tjv', 9),
-(5, 'e059asdrgfu8eu5ip05qv55v220oto5f', 6),
-(6, 'e059asdrgfu8eu5ip05qv55v220oto5f', 9),
-(7, 'j7s3u7dgmogcifq1agme7f68rl175das', 1);
+(1, 'bm1cej7fqj8qg41g7n7todaua8kn9ogj', 1),
+(2, 'bm1cej7fqj8qg41g7n7todaua8kn9ogj', 2),
+(3, 'bm1cej7fqj8qg41g7n7todaua8kn9ogj', 3),
+(4, 'u24e9237qje90tvutmpcdvkle24bunqv', 6),
+(5, 't8egia1m1noj02blcehp60p9e24vqa3f', 9),
+(6, 't8egia1m1noj02blcehp60p9e24vqa3f', 8),
+(10, 's09h0611f1bvmff6dn761maipp42k04p', 2),
+(11, 's09h0611f1bvmff6dn761maipp42k04p', 3),
+(12, 's09h0611f1bvmff6dn761maipp42k04p', 4),
+(13, 's09h0611f1bvmff6dn761maipp42k04p', 5);
 
 -- --------------------------------------------------------
 
@@ -80,11 +85,20 @@ INSERT INTO `goods` (`id`, `name`, `description`, `price`) VALUES
 
 CREATE TABLE `orders` (
   `id` int NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` varchar(25) NOT NULL,
-  `payment_type` varchar(25) NOT NULL,
-  `sum` int NOT NULL
+  `user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `phone_num` varchar(255) NOT NULL,
+  `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_name`, `phone_num`, `session_id`) VALUES
+(1, 'Эмметт Браун', '+12345678901', 'bm1cej7fqj8qg41g7n7todaua8kn9ogj'),
+(2, 'Джон Траволта', '+79199457100', 'u24e9237qje90tvutmpcdvkle24bunqv'),
+(3, 'Брюс Уэйн', '+79199450071', 't8egia1m1noj02blcehp60p9e24vqa3f'),
+(4, 'Эмили Блант', '+73452513030', 's09h0611f1bvmff6dn761maipp42k04p');
 
 -- --------------------------------------------------------
 
@@ -104,7 +118,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `login`, `pass`) VALUES
 (1, 'admin', '$2y$10$RYonEsFE82Ok7fAmH3ZSHupcnbwmKFcmOQMoYazwaR2./2G4.666S'),
-(2, 'user1', '123321'),
+(2, 'user1', '$2y$10$tw9DajCJyNwnWNYKqleU0uEdb7JdPUXAAK/sMCC3xLUSY/2g5GXCy'),
 (3, 'user2', '111');
 
 --
@@ -144,7 +158,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `goods`
@@ -156,7 +170,7 @@ ALTER TABLE `goods`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

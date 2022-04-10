@@ -13,9 +13,11 @@ class CartController extends Controller
         $session_id = session_id();
 
         $cart = (new CartRepository())->getCart($session_id);
+        $sum = (new CartRepository())->getSum($session_id);
 
         echo $this->render("cart", [
             "cart" => $cart,
+            "sum" => $sum,
         ]);
     }
 
@@ -43,21 +45,12 @@ class CartController extends Controller
         $session_id = (new Session())->getId();
 
         $cart = (new CartRepository())->getOne($id);
-        $error = "Ok";
 
         if ($session_id == $cart->session_id) {
             (new CartRepository())->delete($cart);
-        } else {
-            $error = "Error";
         }
 
-        $response = [
-            "status" => $error,
-            "count" => (new CartRepository())->getCountWhere("session_id", $session_id),
-        ];
-
-        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
+        header("Location: /cart");
         die();
     }
 }

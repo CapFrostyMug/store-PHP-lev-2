@@ -7,6 +7,7 @@ use app\engine\Db;
 abstract class Repository
 {
     abstract protected function getTableName();
+
     abstract protected function getEntityClass();
 
     public function getLimit($limit)
@@ -62,7 +63,6 @@ abstract class Repository
 
         $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
         Db::getInstance()->execute($sql, $params);
-
         $entity->id = Db::getInstance()->lastInsertId();
 
         return $this;

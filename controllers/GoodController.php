@@ -16,7 +16,7 @@ class GoodController extends Controller
     {
         $page = (new Request())->getParams()["page"] ?? 0;
         //$catalog = Goods::getAll();
-        $catalog = (new GoodRepository())->getLimit(($page + 1) * 5);
+        $catalog = (new GoodRepository())->getLimit(($page + 1) * 3);
 
         echo $this->render("good/catalog", [
             "catalog" => $catalog,

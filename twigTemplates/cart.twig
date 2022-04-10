@@ -1,9 +1,9 @@
 <h2>Корзина</h2>
 
 {% for item in cart %}
-<div>
-    <h3>{{ item.name }}</h3>
-    <p>price: {{ item.price }}</p>
-    <button>Удалить</button>
-</div>
+    <div>
+        <h3>{{ item.name }}</h3>
+        <p>price: {{ item.price }}</p>
+        <button>Удалить</button>
+    </div>
 {% endfor %}
